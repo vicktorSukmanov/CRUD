@@ -1,0 +1,50 @@
+!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <style>table th, table td {padding: 5px;}</style>
+</head>
+<body>
+<h1>Users</h1>
+<div>
+    <table class="table" >
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td><a th:href="@{users/?id={id}(id=${user.getId()})}" th:utext="${user.getFirstName()}">name</a></td>
+            <td th:utext="${user.getLastName()}">model</td>
+            <td th:utext="${user.getEmail()}">series</td>
+
+            <td>
+                <form th:action="@{users/edit/}" method="GET">
+                    <input type="hidden" name="id" th:value="${user.getId()}"/>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+
+            <td>
+                <form th:action="@{users/delete/}" method="POST">
+                    <input type="hidden" name="id" th:value="${user.getId()}"/>
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br/>
+<form action="users/new" method="get">
+    <input type="hidden" />
+    <button type="submit">Create new user</button>
+</form>
+</body>
+</html>
